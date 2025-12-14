@@ -3,9 +3,9 @@
 #include <stdio.h>
 
 #define RULE_SIZE 3
-#define VIRTUAL_MAX_COLS 71
+#define VIRTUAL_MAX_COLS 20000
 #define MAX_COLS VIRTUAL_MAX_COLS + 2
-#define FILE_MAX_LINES 27
+#define FILE_MAX_LINES 20000
 
 // More about game of life: https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
 
@@ -158,15 +158,26 @@ void print_world(const int world[][MAX_COLS], int rows_count, int cols_count);
 void write_world(const int world[][MAX_COLS], int rows_count, int cols_count, const char *filename);
 
 /*
+ * Function: read_world_size
+ * ----------------------------
+ * Reads only the size of a world from a text file.
+ * Fills world_size = {rows_count, cols_count}.
+ */
+void read_world_size(int world_size[2], const char *filename);
+
+/*
  * Function: read_world
  * ----------------------------
- * Initializes a world from a text file.
- * 
- * - dead cell (0) is represented by ". "
- * - live cell (1) is represented by "X "
+ * Initializes a world from a text file and also sets world_size.
  *
- * world: matrix of 0s and 1s
+ * - dead cell (0) is represented by "."
+ * - live cell (1) is represented by "X" or "x"
+ *
+ * world: matrix of 0s and 1s (at least rows_count+2 by MAX_COLS)
  * world_size: size of the world -> {rows_count, cols_count}
  * filename: path to the file
  */
-void read_world(int world[FILE_MAX_LINES + 2][MAX_COLS], int world_size[2], const char *filename);
+void read_world(int world[][MAX_COLS],
+                int world_size[2],
+                const char *filename);
+
