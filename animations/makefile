@@ -1,3 +1,4 @@
+
 CC = gcc
 CFLAGS = -g -Wall -I${INCLUDE_DIR} -I${LIFE_INCLUDE_DIR}
 

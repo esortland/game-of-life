@@ -170,3 +170,39 @@ void write_world(const int world[][MAX_COLS], int rows_count, int cols_count, co
  * filename: path to the file
  */
 void read_world(int world[FILE_MAX_LINES + 2][MAX_COLS], int world_size[2], const char *filename);
+
+/*
+ * Dynamic-size world API (non-disruptive extension)
+ * -------------------------------------------------
+ * Enables loading and simulating worlds larger than the fixed-size arrays
+ * without changing the core Game of Life logic (still toroidal wrapping).
+ */
+
+typedef struct DynWorld {
+	int rows;   /* inner rows_count */
+	int cols;   /* inner cols_count */
+	int pitch;  /* stride in elements: cols + 2 (for halos) */
+	int *data;  /* flattened buffer of size (rows + 2) * pitch */
+} DynWorld;
+
+/* Allocate and free a dynamic world buffer */
+DynWorld *alloc_world_dyn(int rows_count, int cols_count);
+void free_world_dyn(DynWorld *w);
+
+/* Read a world from a test-format file into a dynamic world.
+ * Accepts '.' for dead and 'x'/'X' for live. Tokens are space-separated.
+ * Returns NULL on error.
+ */
+DynWorld *read_world_dyn(const char *filename);
+
+/* Flat update functions operating on flattened buffers with pitch. */
+void update_world_flat(int *world_flat, int rows_count, int cols_count,
+					   int *world_aux_flat, const int rule[RULE_SIZE], int pitch);
+void update_world_n_generations_flat(int n, int *world_flat, int rows_count, int cols_count,
+									 int *world_aux_flat, const int rule[RULE_SIZE], int pitch);
+
+/* Dead-border (non-wrapping) variants: treat out-of-bounds neighbors as 0. */
+void update_world_flat_dead(int *world_flat, int rows_count, int cols_count,
+							int *world_aux_flat, const int rule[RULE_SIZE], int pitch);
+void update_world_n_generations_flat_dead(int n, int *world_flat, int rows_count, int cols_count,
+										  int *world_aux_flat, const int rule[RULE_SIZE], int pitch);
