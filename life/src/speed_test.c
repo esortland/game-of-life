@@ -11,19 +11,44 @@ double now() {
     clock_gettime(CLOCK_MONOTONIC, &ts);
     return ts.tv_sec + ts.tv_nsec * 1e-9;
 }
+// ./build/speed_test rows cols iterations threads
 
-int main(void)
+int main(int argc, char *argv[])
 {
     int rows = 1000;
     int cols = 1000;
     int generations = 200;
+    int num_threads = omp_get_max_threads();
+
+    // Parse command line arguments: ./exe rows cols threads
+    if (argc > 1) {
+        rows = atoi(argv[1]);
+        if (rows <= 0) rows = 1000;
+    }
+    if (argc > 2) {
+        cols = atoi(argv[2]);
+        if (cols <= 0) cols = 1000;
+    }
+    if (argc > 3) {
+        generations = atoi(argv[3]);
+        if (generations <= 0) generations = 200;
+    }
+    if (argc > 4) {
+        num_threads = atoi(argv[4]);
+        if (num_threads <= 0) {
+            fprintf(stderr, "Invalid thread count. Using default (%d)\n", omp_get_max_threads());
+            num_threads = omp_get_max_threads();
+        }
+    }
+
+    omp_set_num_threads(num_threads);
 
     int rule[RULE_SIZE] = {3, 2, 3};
 
     printf("Benchmarking Game of Life...\n");
     printf("Grid: %d x %d\n", rows, cols);
     printf("Generations: %d\n", generations);
-    printf("OMP threads: %d\n\n", omp_get_max_threads());
+    printf("OMP threads: %d\n\n", num_threads);
     
     // Allocate using the SAME FORMAT the original project expects:
     // int world[][MAX_COLS]
