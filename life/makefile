@@ -12,7 +12,7 @@ SERIAL_SRC = $(SRC_DIR)/life.c $(SRC_DIR)/life_test.c
 OMP_SRC = $(SRC_DIR)/life.c $(SRC_DIR)/life_omp.c $(SRC_DIR)/life_test.c
 
 
-TARGETS = life_serial life_omp speed_test
+TARGETS = life_serial life_omp speed_test run_tests run_tests_correctness
 
 all: build ${TARGETS}
 
@@ -23,11 +23,6 @@ speed_test:
 	$(CC) $(CFLAGS) -fopenmp \
 		src/life.c src/life_omp.c src/speed_test.c \
 		-o build/speed_test
-
-run_tests:
-	$(CC) $(CFLAGS) -fopenmp \
-		src/life.c src/life_omp.c tests/run_tests.c \
-		-o build/run_tests
 
 life_serial:
 	$(CC) $(CFLAGS) $(SERIAL_SRC) -o $(BUILD_DIR)/$@
@@ -50,6 +45,11 @@ run_tests:
 	$(CC) $(CFLAGS) -fopenmp \
 		src/life.c src/life_omp.c tests/run_tests.c \
 		-o build/run_tests
+
+run_tests_correctness:
+	$(CC) $(CFLAGS) -fopenmp \
+		src/life.c src/life_omp.c tests/run_tests_correctness.c \
+		-o build/run_tests_correctness
 
 tests: run_tests
 	./build/run_tests
