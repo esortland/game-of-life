@@ -78,13 +78,24 @@ int main(int argc, char *argv[])
     // SERIAL
     // ----------
     double t0 = now();
-    update_world_n_generations(generations, world, rows, cols, world_aux, rule);
-    double serial_time = now() - t0;
+    double serial_time;
+    if (rows < 1000 && cols < 1000){
+        printf("Running SERIAL version...\n");
+                update_world_n_generations(generations, world, rows, cols, world_aux, rule);
+        
 
-    // restore world for OMP test
-    for (int r = 1; r <= rows; r++)
-        for (int c = 1; c <= cols; c++)
-            world[r][c] = world_copy[r][c];
+        // restore world for OMP test
+        for (int r = 1; r <= rows; r++)
+            for (int c = 1; c <= cols; c++)
+                world[r][c] = world_copy[r][c];
+        serial_time = now() - t0;
+    }
+    else{
+        printf(" skipping SERIAL version (this will take too long)...\n");
+        serial_time = -1;
+    }
+    
+    
 
     // ----
     // OMP

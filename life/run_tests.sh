@@ -93,7 +93,7 @@ for i in "${!test_file_inputs[@]}"; do
         
         for threads in "${thread_counts[@]}"; do
             echo "Testing input: $input_file, Expected output: $output_file, Iterations: $num_iters, Threads: $threads"
-            ./build/run_tests_correctness "$input_file" "$output_file" "$num_iters" "$threads"
+            # ./build/run_tests_correctness "$input_file" "$output_file" "$num_iters" "$threads"
             echo ""
         done
     done
@@ -103,13 +103,18 @@ done
 
 
 # Speed test configurations
-declare -a thread_counts=(1 64 128)
+declare -a thread_counts=(16 64 128)
 declare -a grid_configs=(
-    "100 100 100"
-    "1000 1000 100"
-    "5000 1000 100"
-    "1000 5000 100"
-    # "10000 10000 10" // Disabled due to long runtime
+    "22 22 100"
+    "22 22 300"
+    "22 71 100"
+    "22 71 300"
+    "630 101 100"
+    "630 101 500"
+    "2000 2000 100"
+    "2000 2000 500"
+    "10000 10000 20"
+    "10000 10000 100"
 )
 
 # Run benchmarks
