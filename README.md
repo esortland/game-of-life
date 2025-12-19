@@ -1,6 +1,8 @@
-# Game of Life
+# Parallelized Conway’s Game of Life Exploration Using OpenMP and CUDA
 
-> This is a personal project that I created to get some hands in C language.
+**CSCI 5451 Course Project**
+
+**Project Members:** Andrea Arifin, Mari Duda, Matt Rajala, Eric Sortland
 
 ---
 
@@ -10,39 +12,45 @@
 
 ---
 
-## Description
+## Repository Structure
 
-In this project I used C to build the Conway's Game of Life. 
-The project contains two modules:
- - *life*: contains the game of life logic
- - *animations*: contains an app to run the game of life in the console.
+This repository contains multiple implementations of Conway’s Game of Life, organized by branch:
+
+- **`main`**  
+  Baseline serial C implementation.
+
+- **`openmp`**  
+  OpenMP-parallelized implementation.
+
+- **`sortl005/CUDA`**  
+  CUDA-based GPU implementation.
+
+Each branch contains its own build and run instructions.
+
+### Running CUDA tests
+Checkout the `cuda_evals` branch:
+`git checkout cuda_evals`
+
+Unzip the test directory:
+`tar -xzf tests.tar.gz `
+
+Go to the `life` directory:
+`cd life`
+
+Run the script:
+`./run_tests.sh`
+
+### Running OMP tests
+`git checkout omp_evals`
+
+Go to the `life` directory:
+`cd life`
+
+Run the script:
+`./run_tests.sh`
 
 ---
 
-## Usage
+## Attribution
 
-To run the game of life you can clone the repo and run the Makefile in the *animations* directory:
-
-```
-    .../game-of-life/animations$ make
-```
-
----
-
-## About Conway's Game of Life
-
-The Game of Life, also known simply as Life, is a cellular automaton devised by the British mathematician John Horton Conway in 1970. It is a zero-player game, meaning that its evolution is determined by its initial state, requiring no further input. One interacts with the Game of Life by creating an initial configuration and observing how it evolves. It is Turing complete and can simulate a universal constructor or any other Turing machine.
-
-You can check mor information about game of life [here](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life).
-
-<p align="center">
-  <img align="center" src="docs/animations/Gospers_glider_gun.gif" alt="Wiki Gif"/>
-</p>
-
----
-
-## Author Info
-
-- LinkedIn - [André Jesus](https://www.linkedin.com/in/andre-jesus-engineering)
-- Twitter - [@andre_j3sus](https://twitter.com/andre_j3sus)
-- Website - [André Jesus](https://sites.google.com/view/andre-jesus/p%C3%A1gina-inicial)
+The baseline C implementation is a fork of existing work. We made small modifications to improve correctness and to support larger test sizes. All OpenMP and CUDA parallelization work was implemented by the project team.
