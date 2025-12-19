@@ -1,5 +1,22 @@
 # Game of Life (CPU + CUDA)
 
+
+# FOR GRADERS HERES HOW TO RUN OUR TEST SUBSET FOR CUDA:
+### Running CUDA tests
+Checkout the `cuda_evals` branch:
+`git checkout cuda_evals`
+
+Unzip the test directory:
+`tar -xzf tests.tar.gz `
+
+Go to the `life` directory:
+`cd life`
+
+Run the script:
+`./run_tests.sh`
+
+# Code Overview
+
 This repo contains a Conway’s Game of Life implementation with:
 - A CPU reference (dynamic world size, toroidal wrapping, B3/S23).
 - A CUDA implementation that mirrors CPU semantics, plus small bench/verify tools.
