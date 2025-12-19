@@ -27,6 +27,28 @@ This repository contains multiple implementations of Conway’s Game of Life, or
 
 Each branch contains its own build and run instructions.
 
+### Running CUDA tests
+Checkout the `cuda_evals` branch:
+`git checkout cuda_evals`
+
+Unzip the test directory:
+`tar -xzf tests.tar.gz `
+
+Go to the `life` directory:
+`cd life`
+
+Run the script:
+`./run_tests.sh`
+
+### Running OMP tests
+`git checkout omp_evals`
+
+Go to the `life` directory:
+`cd life`
+
+Run the script:
+`./run_tests.sh`
+
 ---
 
 ## Attribution
